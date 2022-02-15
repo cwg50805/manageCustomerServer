@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const validJWTNeeded = (req, res, next) => {
-    if (req == undefined){
+    if (req == undefined) {
         next();
     }
     if (req.headers['authorization']) {
@@ -11,7 +11,6 @@ const validJWTNeeded = (req, res, next) => {
                 return res.status(401).send();
             } else {
                 req.jwt = jwt.verify(authorization[1], process.env.JWT_KEY);
-                console.log(req.jwt);
                 return next();
             }
         } catch (err) {
@@ -20,6 +19,6 @@ const validJWTNeeded = (req, res, next) => {
     } else {
         return res.status(401).send();
     }
-}; 
+};
 
 module.exports = validJWTNeeded;
